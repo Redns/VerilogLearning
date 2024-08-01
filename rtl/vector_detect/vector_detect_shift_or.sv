@@ -1,4 +1,4 @@
-module vector_detect_shift_xor #(
+module vector_detect_shift_or #(
     parameter VECTOR_WIDTH = 16
 ) (
     input  [VECTOR_WIDTH-1:0] seq,

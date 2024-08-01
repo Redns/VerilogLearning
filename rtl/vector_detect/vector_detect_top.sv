@@ -1,9 +1,9 @@
 `define VECTOR_WIDTH 16
-`define VECTOR_DETECT_MODE `VECTOR_DETECT_COMPL
+`define VECTOR_DETECT_MODE `VECTOR_DETECT_DIVDE
 `define VECTOR_DETECT_CASEZ 0
 `define VECTOR_DETECT_DIVDE 1
 `define VECTOR_DETECT_COMPL 2
-`define VECTOR_DETECT_SHIFT_XOR 3
+`define VECTOR_DETECT_SHIFT_OR 3
 
 module vector_detect_top (
     input                          clk,
@@ -34,8 +34,8 @@ module vector_detect_top (
                 .seq(seq),
                 .pos(pos_w)
             );
-        end else if (`VECTOR_DETECT_MODE == `VECTOR_DETECT_SHIFT_XOR) begin
-            vector_detect_shift_xor #(
+        end else if (`VECTOR_DETECT_MODE == `VECTOR_DETECT_SHIFT_OR) begin
+            vector_detect_shift_or #(
                 .VECTOR_WIDTH(`VECTOR_WIDTH)
             ) vector_detect_shift_xor_inst (
                 .seq(seq),

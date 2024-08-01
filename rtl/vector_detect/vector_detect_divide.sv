@@ -6,7 +6,7 @@ module vector_detect_divide #(
     output [VECTOR_WIDTH-1:0] pos
 );
 
-    wire [1:0][VECTOR_SUB_WIDTH-1:0] vector_sub;
+    wire [1:0][VECTOR_SUB_WIDTH-1:0] sub_pos;
 
     generate
         if (VECTOR_WIDTH == 2) begin
@@ -16,18 +16,18 @@ module vector_detect_divide #(
                 .VECTOR_WIDTH(VECTOR_SUB_WIDTH)
             ) vector_detect_0 (
                 .seq(seq[0+:VECTOR_SUB_WIDTH]),
-                .pos(vector_sub[0])
+                .pos(sub_pos[0])
             );
 
             vector_detect_divide #(
                 .VECTOR_WIDTH(VECTOR_SUB_WIDTH)
             ) vector_detect_1 (
                 .seq(seq[VECTOR_WIDTH-1-:VECTOR_SUB_WIDTH]),
-                .pos(vector_sub[1])
+                .pos(sub_pos[1])
             );
 
-            assign pos[VECTOR_WIDTH-1-:VECTOR_SUB_WIDTH] = vector_sub[1];
-            assign pos[0+:VECTOR_SUB_WIDTH] = vector_sub[1] ? 'b0 : vector_sub[0];
+            assign pos[VECTOR_WIDTH-1-:VECTOR_SUB_WIDTH] = sub_pos[1];
+            assign pos[0+:VECTOR_SUB_WIDTH] = sub_pos[1] ? 'b0 : sub_pos[0];
         end
     endgenerate
 

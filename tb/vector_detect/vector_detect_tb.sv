@@ -1,11 +1,12 @@
 `timescale 1ns / 1ns
 
 `define VECTOR_WIDTH 16
-`define VECTOR_DETECT_MODE `VECTOR_DETECT_COMPL
+`define VECTOR_DETECT_MODE `VECTOR_DETECT_R2L
 `define VECTOR_DETECT_CASEZ 0
 `define VECTOR_DETECT_DIVDE 1
 `define VECTOR_DETECT_COMPL 2
-`define VECTOR_DETECT_SHIFT_XOR 3
+`define VECTOR_DETECT_SHIFT_OR 3
+`define VECTOR_DETECT_R2L 4
 
 module vector_detect_tb;
 
@@ -32,10 +33,18 @@ module vector_detect_tb;
                 .seq(seq),
                 .pos(pos)
             );
-        end else if (`VECTOR_DETECT_MODE == `VECTOR_DETECT_SHIFT_XOR) begin
-            vector_detect_shift_xor #(
+        end else if (`VECTOR_DETECT_MODE == `VECTOR_DETECT_SHIFT_OR) begin
+            vector_detect_shift_or #(
                 .VECTOR_WIDTH(`VECTOR_WIDTH)
             ) vector_detect_shift_xor_inst (
+                .seq(seq),
+                .pos(pos)
+            );
+        end else if (`VECTOR_DETECT_MODE == `VECTOR_DETECT_R2L) begin
+            vector_detect_r2l #(
+                .VECTOR_WIDTH(`VECTOR_WIDTH),
+                .VECTOR_DETECT_MODE(`VECTOR_DETECT_CASEZ)
+            ) vector_detect_r2l_inst (
                 .seq(seq),
                 .pos(pos)
             );
